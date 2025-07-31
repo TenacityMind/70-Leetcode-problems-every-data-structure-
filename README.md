@@ -34,7 +34,7 @@ Given an array **nums** containing n distinct numbers in the range **[0, n]**, r
 ### Solution Explained
 The solution is based on a classic mathematical trick. Since the input array contains n distinct numbers taken from the range [0, n], exactly one number is missing.
 
-**Determine the Expected Sum:** If the array were complete, it would contain all integers from 0 to n (where n is nums.length). The sum of a sequence of numbers from 0 to n can be quickly calculated with the Gaussian sum formula: S_n=fracn(n+1)2. This gives us the expectedSum.
+**Determine the Expected Sum:** If the array were complete, it would contain all integers from 0 to n (where n is nums.length). The sum of a sequence of numbers from 0 to n can be quickly calculated with the Gaussian sum formula: S_n= n(n+1)/2. This gives us the expectedSum.
 
 **Calculate the Actual Sum:** The code then iterates through the input array nums one time to calculate the actualSum of all the elements it contains.
 
@@ -56,3 +56,23 @@ This is because we iterate through the input array of N elements exactly once to
 
 **Space Complexity: $O(1)$**
 The algorithm only uses a few variables (n, expectedSum, actualSum) to store intermediate values. The amount of memory used does not increase with the size of the input array, making the space complexity constant.
+
+### [ 3. Find All The Numbers Disappeared in an Array](https://leetcode.com/problems/find-all-numbers-disappeared-in-an-array/description/)
+### Problem 
+
+Given an array nums of n integers where each element nums[i] is in the range [1, n], return a list of all the integers in the range [1, n] that do not appear in nums.
+
+### Solution Explained
+
+This solution uses a HashSet to easily keep track of which numbers are present in the input array.
+
+**Store Present Numbers:** First, the code iterates through the input array nums and adds every number to a HashSet. A set is used because it automatically handles duplicates and provides very fast lookups (checking if an element exists).
+
+**Find Missing Numbers:** After building the set of present numbers, the code starts a new loop that iterates through the complete range of numbers from 1 to n (where n is the length of the array).
+
+**Collect Results:** In this second loop, it checks if each number i is in the HashSet. If presentNumbers.contains(i) returns false, it means the number i was missing from the original array, and it's added to the final result list.
+
+### Complexity Analysis
+**Time Complexity:** $O(N)$ The total time is linear with respect to the number of elements, N, in the array. This is because it takes O(N) time to build the set and another O(N) time to loop from 1 to N to check for missing numbers.
+
+**Space Complexity:** $O(N)$ This solution requires extra space to store the HashSet. In the worst-case scenario (where all numbers in nums are unique), the set will store N elements, leading to a linear space requirement.
