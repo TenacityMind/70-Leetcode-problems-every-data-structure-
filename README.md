@@ -28,3 +28,31 @@ This approach uses a HashSet to efficiently keep track of the numbers encountere
 
 **Space Complexity: O(N)**
     In the worst-case scenario where all elements in the array are unique, the HashSet will grow to a size of N. Therefore, the space required is proportional to the number of elements in the input array.
+### [2. Missing Number](https://leetcode.com/problems/missing-number/)
+### Problem :
+Given an array **nums** containing n distinct numbers in the range **[0, n]**, return the only _number_ in the range that is missing from the array.
+### Solution Explained
+The solution is based on a classic mathematical trick. Since the input array contains n distinct numbers taken from the range [0, n], exactly one number is missing.
+
+**Determine the Expected Sum:** If the array were complete, it would contain all integers from 0 to n (where n is nums.length). The sum of a sequence of numbers from 0 to n can be quickly calculated with the Gaussian sum formula: S_n=fracn(n+1)2. This gives us the expectedSum.
+
+**Calculate the Actual Sum:** The code then iterates through the input array nums one time to calculate the actualSum of all the elements it contains.
+
+**Find the Missing Number:** The difference between the expectedSum and the actualSum is precisely the number that is missing from the sequence. The function returns this difference.
+
+For example, with nums = [3, 0, 1]:
+
+n is 3.
+
+Expected Sum = (3 * (3 + 1)) / 2 = (3 * 4) / 2 = 6. (The sum of 0+1+2+3)
+
+Actual Sum = 3 + 0 + 1 = 4.
+
+Missing Number = 6 - 4 = 2.
+### Complexity Analysis
+
+**Time Complexity: $O(N)$**
+This is because we iterate through the input array of N elements exactly once to calculate the actualSum. The calculation for expectedSum is a constant time, O(1), operation.
+
+**Space Complexity: $O(1)$**
+The algorithm only uses a few variables (n, expectedSum, actualSum) to store intermediate values. The amount of memory used does not increase with the size of the input array, making the space complexity constant.
