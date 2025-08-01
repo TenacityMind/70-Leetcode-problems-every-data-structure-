@@ -76,3 +76,36 @@ This solution uses a HashSet to easily keep track of which numbers are present i
 **Time Complexity:** $O(N)$ The total time is linear with respect to the number of elements, N, in the array. This is because it takes O(N) time to build the set and another O(N) time to loop from 1 to N to check for missing numbers.
 
 **Space Complexity:** $O(N)$ This solution requires extra space to store the HashSet. In the worst-case scenario (where all numbers in nums are unique), the set will store N elements, leading to a linear space requirement.
+
+### [ 4. Two Sum](https://leetcode.com/problems/two-sum/description/)
+### Problem:
+Given an array of integers nums and an integer target, return indices of the two numbers such that they add up to target.
+You may assume that each input would have exactly one solution, and you may not use the same element twice.
+You can return the answer in any order.
+
+### Solution Explained:
+
+The core idea is that for each number x in the array, you're looking for a complement number y such that x + y = target. This means y = target - x.
+
+By using a HashMap, you can check for this complement in constant time.
+
+Initialize a HashMap: Create a HashMap to store (number, index) pairs.
+
+Iterate Through the Array: Loop through the nums array one element at a time.
+
+Check for a Solution: For each number nums[i]:
+
+Calculate its required complement: complement = target - nums[i].
+
+Check if the complement already exists as a key in the HashMap.
+
+If it does, you've found the solution. Return the complement's index (which you get from the map) and the current number's index, i.
+
+If it doesn't, add the current number nums[i] and its index i to the map. This stores it for future checks.
+
+This one-pass approach is efficient because you're both checking for a solution and building up the map of potential complements at the same time.
+
+### Complexity Analysis:
+**Time Complexity:** $O(N)$ We iterate through the array of N elements only once. The HashMap lookups (containsKey) and insertions (put) take, on average, constant time (O(1)).
+
+**Space Complexity:** $O(N)$ In the worst-case scenario, the HashMap could store up to N elements before the solution is found.
