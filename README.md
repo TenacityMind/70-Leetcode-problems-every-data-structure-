@@ -109,3 +109,35 @@ This one-pass approach is efficient because you're both checking for a solution 
 **Time Complexity:** $O(N)$ We iterate through the array of N elements only once. The HashMap lookups (containsKey) and insertions (put) take, on average, constant time (O(1)).
 
 **Space Complexity:** $O(N)$ In the worst-case scenario, the HashMap could store up to N elements before the solution is found.
+
+### [5. How Many Numbers Are Smaller Than the Current Number](https://leetcode.com/problems/how-many-numbers-are-smaller-than-the-current-number/description/)
+### Problem:
+Imagine you're given a list of numbers. Your goal is to create a new list of the exact same size.
+
+For every number in the original list, you need to look through the entire list and count how many of the other numbers are smaller than it. The result of that count will be the new value at that same position.
+
+### Solution Explained:
+This method provides a significant improvement over the brute-force approach. The core idea is to sort a copy of the array. Once sorted, the index of a number tells you how many elements are smaller than or equal to it. We use a HashMap to efficiently store this information and handle duplicates.
+
+**Create a Copy and Sort:** First, we create a copy of the original nums array. We need the original order for our final result, so we must sort the copy, not the input array itself.
+
+**Map Numbers to Counts:** We create a HashMap to store each unique number and its corresponding count of smaller numbers. We iterate through the sorted array. The index i of a number in the sorted array is the count of how many numbers are smaller than it.
+
+For example, in the sorted array [1, 2, 2, 3, 8]:
+
+The first number is 1 at index 0, so 0 numbers are smaller than it.
+
+The first 2 is at index 1, so 1 number is smaller than it.
+
+The number 3 is at index 3, so 3 numbers are smaller than it.
+
+We only put a number into the map the first time we see it. This correctly handles duplicates, ensuring that all instances of 2 are mapped to a count of 1 (the index of the first 2).
+
+**Build the Final Result:** Finally, we iterate through the original nums array. For each number, we look up its pre-calculated count in our map and place it in the corresponding position in our result array.
+
+### Complexity Analysis:
+**Time Complexity:** $O(N \log N)$
+The dominant operation is sorting the array, which takes $O(N \log N)$ time. Copying the array, building the map, and creating the final result array are all linear, $O(N), operations.
+
+**Space Complexity:** $O(N)$
+We use extra space for the copy of the array ($O(N)$) and for the HashMap, which in the worst case (all unique elements) will also store N entries ($O(N)).
