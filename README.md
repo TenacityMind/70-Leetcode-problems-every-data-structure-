@@ -141,3 +141,27 @@ The dominant operation is sorting the array, which takes $O(N \log N)$ time. Cop
 
 **Space Complexity:** $O(N)$
 We use extra space for the copy of the array ($O(N)$) and for the HashMap, which in the worst case (all unique elements) will also store N entries ($O(N)).
+
+### [6. Minimum Time Visiting All Points](https://leetcode.com/problems/minimum-time-visiting-all-points/description/)
+### Problem:
+On a 2D plane, there are n points with integer coordinates points[i] = [xi, yi]. Return the minimum time in seconds to visit all the points in the order given by points.
+
+### Solution Explained:
+This solution calculates the total travel time by breaking the journey down into smaller segments, moving from one point to the next in the specified order. It cleverly maintains the location of the "previous" point to calculate the time for each step.
+
+**Initialization:** The code starts by initializing the total time (minTime) to 0 and setting the starting coordinates (x1, y1) to the very first point in the list (points[0]).
+
+**Iterating Through Segments:** It then iterates through the rest of the points, from the second point (i = 1) to the end. In each step of the loop, it treats (x1, y1) as the starting point and points[i] as the destination for that segment.
+
+**Calculating Segment Time:** As your own comments correctly derive, the minimum time to travel between any two points is the Chebyshev distance. This is the greater of the horizontal distance (dx) and the vertical distance (dy). The line minTime += Math.max( Math.abs( x2-x1 ), Math.abs( y2-y1 ) ); efficiently calculates this time and adds it to the running total.
+
+**Updating State:** After calculating the time to get to the current point (x2, y2), the code updates the "previous" point by setting x1=x2 and y1=y2. This prepares for the next iteration, where the current point will become the starting point for the next segment.
+
+This process continues until all segments have been traveled, resulting in the total minimum time.
+
+### Complexity Analysis:
+**Time Complexity:** $O(N)$
+The algorithm involves a single for loop that iterates through the N points of the input array once. All operations inside the loop (subtraction, absolute value, finding the maximum, and addition) are constant-time operations. Therefore, the runtime grows linearly with the number of points.
+
+**Space Complexity:** $O(1)$
+The solution uses only a few variables (minTime, x1, y1, x2, y2, i) to store the state. The amount of memory used does not increase as the size of the input points array grows. This makes the space complexity constant.
