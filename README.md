@@ -165,3 +165,36 @@ The algorithm involves a single for loop that iterates through the N points of t
 
 **Space Complexity:** $O(1)$
 The solution uses only a few variables (minTime, x1, y1, x2, y2, i) to store the state. The amount of memory used does not increase as the size of the input points array grows. This makes the space complexity constant.
+
+### [7. Spiral Matirx](https://leetcode.com/problems/spiral-matrix/description/)
+### Problem:
+Given an m x n matrix, return all elements of the matrix in spiral order.
+Input: matrix = [ [1,2,3],[4,5,6],[7,8,9] ]
+Output: [1,2,3,6,9,8,7,4,5]
+
+### Solution Explained:
+
+code solves the problem by simulating a spiral traversal of the matrix. It "peels" the matrix layer by layer from the outside in, using four pointers to keep track of the boundaries of the current layer.
+
+**Initialization:** top, bottom, left, right: You initialize four integer variables to define the boundaries of the matrix. top and left start at 0, while bottom and right start at the last row and column indices, respectively.
+
+**result:** An ArrayList is created to store the numbers in their spiral order.
+
+**Main Traversal Loop:** The while(top <= bottom && left <= right) loop is the core of the algorithm. It ensures that the process continues as long as there is a valid layer to traverse (i.e., the top boundary is not below the bottom, and the left is not past the right).
+
+**The Four Traversal Steps:** Inside the while loop, one full spiral layer is traversed in four distinct steps:
+
+* Step 1 (Go Right): The first for loop iterates from left to right along the top row, adding each element to the result list. Afterward, top is incremented, effectively moving the top boundary down.
+* Step 2 (Go Down): The second for loop traverses down the right column from the new top to bottom. Afterward, right is decremented, shrinking the boundary inward.
+* Step 3 (Go Left): Before traversing left, the crucial if (top <= bottom) check ensures there's still a valid row to traverse. This prevents errors on "thin" matrices (e.g., a single column). If valid, it traverses from right to left along the bottom row, and then bottom is decremented.
+* Step 4 (Go Up): Similarly, the if (left <= right) check ensures a valid column exists before traversing up the left column. If valid, it traverses from bottom to top, and then left is incremented.
+This cycle repeats, with the boundaries shrinking inward, until the while loop condition is no longer met, at which point every element has been visited.
+
+### Complexity Analysis:
+Time Complexity: $O(M \times N)$
+This is because the algorithm visits each element in the M x N matrix exactly once. The nested loops might look complex, but they systematically process every cell without repetition.
+
+Space Complexity: $O(1)
+The space required by the algorithm itself is constant. The variables top, bottom, left, right, and the loop counters do not depend on the size of the input matrix.
+
+(Note: If you consider the space required for the output result list, the space complexity would be $O(M \times N)$, as it needs to store all the elements from the matrix. However, in complexity analysis, the space for the output is often excluded from the calculation.)
