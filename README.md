@@ -198,3 +198,64 @@ Space Complexity: $O(1)
 The space required by the algorithm itself is constant. The variables top, bottom, left, right, and the loop counters do not depend on the size of the input matrix.
 
 (Note: If you consider the space required for the output result list, the space complexity would be $O(M \times N)$, as it needs to store all the elements from the matrix. However, in complexity analysis, the space for the output is often excluded from the calculation.)
+
+### [8. Number of Islands](https://leetcode.com/problems/number-of-islands/description/)
+### Problem:
+Given an `m x n` 2D binary grid, `grid` which represents a map of `'1'`s (land) and `'0'`s (water), return the number of islands.
+
+An island is surrounded by water and is formed by connecting adjacent lands horizontally or vertically. You may assume all four edges of the grid are all surrounded by water.
+
+### Solutions Explained:
+### Solution 1: Depth-First Search (DFS)
+
+The Depth-First Search strategy explores an island by going as deep as possible down one path before backtracking.
+
+#### How It Works
+
+**1. Main Loop:** The code iterates through every cell of the grid.
+
+**2. Island Discovery:** If it finds a land cell ('1') that has not been previously visited, it knows it has found a new, distinct island. It increments the islandCount.
+
+**3. Recursive Exploration:** It then calls a recursive dfs helper function starting from that cell.
+
+* The dfs function first marks the current cell as visited.
+
+* It then calls itself for all four of its neighbors (up, down, left, right).
+
+* The recursion stops for a given path if it goes out of bounds, hits water, or reaches a cell that has already been visited.
+
+**4. Completion:** This recursive process continues until every connected part of the newly discovered island has been marked as visited. The main loop then continues its scan, ignoring the now-visited cells, until it finds the next unvisited island.
+
+### Solution 2: Breadth-First Search (BFS)
+
+The Breadth-First Search strategy explores an island layer by layer, visiting all of a cell's immediate neighbors before moving on to the next level.
+
+#### How It Works
+
+**1. Main Loop:** The main loop is identical to the one in the DFS approach. It scans for an unvisited land cell ('1') and increments the islandCount upon finding one.
+
+**2. Queue-Based Exploration:** Instead of using recursion, BFS uses a Queue data structure to manage the exploration.
+
+* When a new island is discovered, its starting cell is added to the queue and immediately marked as visited.
+
+* A while loop runs as long as the queue is not empty.
+
+* Inside the loop, a cell is removed from the front of the queue. Its valid, unvisited land neighbors are then marked as visited and added to the back of the queue.
+
+**3. Completion:** The while loop finishes once the queue is empty, which means every connected cell in the island has been visited. The main loop then continues its scan.
+
+### Time and Space Complexity Analysis
+
+For this problem, the complexity is the same for both the DFS and BFS solutions.
+
+**Time Complexity:** $O(M \times N)$ 
+Where M is the number of rows and N is the number of columns. This is because, in the worst-case scenario, every cell in the grid is visited exactly once by the main loop and then checked a constant number of times during the traversal process (DFS or BFS).
+
+**Space Complexity:** $O(M \times N)$
+This is dominated by the boolean[][] visited array, which requires space proportional to the size of the grid. In addition:
+
+* DFS uses the call stack for recursion, which in the worst case (a long, snake-like island) could also be $O(M \times N)$.
+
+* BFS uses a Queue, which in the worst case (a very wide island) could hold up to O(min(M,N)) elements.
+
+* However, since the visited array is always required in this non-destructive approach, the overall space complexity is considered $O(M \times N)$.
