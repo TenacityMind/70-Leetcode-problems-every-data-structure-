@@ -305,3 +305,51 @@ By always keeping the `left` pointer at the lowest price seen so far, we ensure 
 
 * **Space Complexity:** $O(1)$
     The solution only uses a few constant variables (left, right, maxProfit). The memory usage does not grow with the size of the input array.
+
+### [10. Squares of a Sorted Array](https://leetcode.com/problems/squares-of-a-sorted-array/description/)
+
+### Problem:
+Given an integer array `nums` sorted in **non-decreasing** order, return an _array of the **squares of each number** sorted in non-decreasing order._
+
+### Solution Explained 
+### Approach 1: Two Pointers from the Ends (Optimal Solution)
+
+The core insight is that after squaring, the **largest** values will always come from the numbers with the largest absolute values, which are at the **ends** of the sorted input array.
+
+* **Initialize Pointers:** The algorithm sets up two pointers: `left` at the beginning of the array and `right` at the end. It also creates a `result` array of the same size.
+
+* **Compare and Place:** It compares the square of the number at the `left` pointer with the square of the number at the `right` pointer.
+
+* **Fill from the End:** Whichever square is larger is placed at the end of the `result` array. The corresponding pointer (`left` or `right`) is then moved inward.
+
+* **Repeat:** This process repeats, filling the `result` array from right to left with progressively smaller squares until the pointers cross.
+
+### Complexity Analysis
+
+**Time Complexity:** $O(N)$
+    The algorithm makes a single pass through the array as the `left` and `right` pointers move towards each other. This makes the runtime linear with respect to the size of the input array.
+
+**Space Complexity:** $O(1)
+    This solution is very memory-efficient. It only uses a few variables for the pointers, so the extra space is constant. (This excludes the `result` array, which is required for the output).
+
+### Approach 2: Split, Square, and Merge (Commented-out Code)
+
+This method manually separates the negative and positive numbers, squares them, and then merges them back together.
+
+1. **Find Pivot:** It first finds the index of the first non-negative number, which acts as a "pivot" to split the array.
+
+2. **Create Temporary Arrays:** It creates two new arrays:
+
+   a: Stores the squares of the negative numbers. They are added in reverse to make this array sorted.
+
+   b: Stores the squares of the non-negative numbers, which are already in sorted order.
+
+3. **Merge:** It then performs a classic "merge" step, similar to merge sort. It iterates through both temporary arrays (a and b), picking the smaller element from the front of either array to place into the final result array.
+
+### Complexity Analysis
+
+**Time Complexity:** $O(N)$
+    Although there are multiple loops, none are nested. Finding the pivot is $O(N)$, creating the two arrays is $O(N)$, and merging them is also $O(N). Therefore, the total time complexity is still linear.
+
+**Space Complexity:** $O(N)$
+    This is the main drawback. This approach requires creating two temporary arrays (a and b) whose combined size is equal to the original array. This leads to a linear space requirement, making it less memory-efficient than the two-pointer approach.
