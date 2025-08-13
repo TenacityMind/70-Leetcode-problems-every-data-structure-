@@ -259,3 +259,49 @@ This is dominated by the boolean[][] visited array, which requires space proport
 * BFS uses a Queue, which in the worst case (a very wide island) could hold up to O(min(M,N)) elements.
 
 * However, since the visited array is always required in this non-destructive approach, the overall space complexity is considered $O(M \times N)$.
+
+## Arrays : Two Pointers
+
+### [9. Best Time to Buy and Sell Stock](https://leetcode.com/problems/best-time-to-buy-and-sell-stock/description/)
+
+### Problem:
+You are given an array `prices` where `prices[i]` is the price of a given stock on the `i^th` day.
+
+You want to maximize your profit by choosing a **single day** to buy one stock and choosing a **different day** in the future to sell that stock.
+
+Return the _maximum profit_ you can achieve from this transaction. If you cannot achieve any profit, return `0`
+
+### Solution Explained:
+
+This algorithm efficiently finds the maximum profit in a single pass using a greedy, two-pointer approach. The strategy is to always make the locally optimal choice at each step, hoping it leads to the globally optimal solution.
+
+**Initialization:**
+
+* A left pointer is set to day 0, representing our initial "buy" day.
+
+* A right pointer is set to day 1 to explore subsequent "sell" days.
+
+* maxProfit is initialized to 0.
+
+**Greedy Choice:**
+The algorithm iterates with the right pointer. At each day, it makes a greedy choice:
+
+* **Is it profitable now?** (`prices[right] > prices[left]`)
+
+    If the current price is higher than our buy price, the locally optimal move is to see if this transaction yields the best profit so far. We calculate the profit and update `maxProfit` if necessary.
+
+
+* **Is there a better buy price?** (`prices[right] <= prices[left]`)
+
+  If the current price is lower than our buy price, it's impossible for our old buy day to ever be part of a better future profit. The greedy choice is to immediately abandon the old buy day and update our buy day to this new, lower price (`left = right`). We greedily take the lowest price we can get for a buy day, as this gives us the maximum potential for future profit.
+
+By always keeping the `left` pointer at the lowest price seen so far, we ensure that any profit we calculate is always the maximum possible profit for that specific sell day.
+
+### Complexity Analysis
+
+* **Time Complexity:** $O(N)$
+    The algorithm is greedy because it makes its decision based on the current best information without looking ahead or behind. Since the right pointer visits each element only once, the time complexity is linear.
+
+
+* **Space Complexity:** $O(1)$
+    The solution only uses a few constant variables (left, right, maxProfit). The memory usage does not grow with the size of the input array.
