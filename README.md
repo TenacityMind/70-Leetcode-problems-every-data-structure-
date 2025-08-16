@@ -393,3 +393,36 @@ The algorithm's performance is dominated by its nested loop structure. After an 
 
 Space Complexity: $O(\log N)$
 The space required does not depend on the input size, excluding the list for the final answer. The sorting algorithm in Java uses a Quicksort variation that requires $O(\log N)$ stack space for the recursion. The main algorithm itself only uses a few pointers, which is considered constant space ($O(1)$).
+
+### [12. Longest Mountain in Array](https://leetcode.com/problems/longest-mountain-in-array/description/)
+### Problem:
+You may recall that an array `arr` is a mountain array if and only if:
+* `arr.length >= 3`
+
+There exists some index i (0-indexed) with `0 < i < arr.length - 1` such that:
+* `arr[0] < arr[1] < ... < arr[i - 1] < arr[i]`
+* `arr[i] > arr[i + 1] > ... > arr[arr.length - 1]`
+
+Given an integer array `arr`, return the length of the longest subarray, which is a mountain. Return `0` if there is no mountain subarray.
+
+### Solution Explained:
+This Solution uses a **"Find Peak and Expand"** strategy. It iterates through the array to identify every potential peak and then expands outwards from each one to measure the length of the mountain.
+
+**Find a Peak:** The main `for` loop iterates through the array from the second element to the second-to-last element. The `if` statement `if(arr[i] > arr[i-1] && arr[i] > arr[i+1])` correctly identifies if the current element `arr[i]` is a peak (i.e., it's strictly greater than both of its neighbors).
+
+**Expand Outwards:** Once a peak is found at index `i`, the code uses two `while` loops to find the full extent of the mountain:
+
+* Expand Left: A `left` pointer, starting at the peak, moves backwards `(left--)` as long as it's part of an uphill slope `(arr[left] > arr[left-1])`. This finds the start of the mountain.
+
+* Expand Right: A `right` pointer, also starting at the peak, moves forwards (right++) as long as it's part of a downhill slope `(arr[right] > arr[right+1])`. This finds the end of the mountain.
+
+**Calculate and Update Max Length:** After finding the start (`left`) and end (`right`) of the mountain, the total length is calculated as `right - left + 1`. The code then updates the result with this length if it's the longest one found so far using `Math.max(result, ...)`.
+
+This process repeats for every possible peak in the array, ensuring the longest mountain is always found.
+
+### Complexity Analysis:
+**Time Complexity:** $O(N)$
+Although you have `while` loops inside a `for` loop, the time complexity is still linear. This is because each element of the array is visited a constant number of times. The main pointer i visits each element once, and the `left` and `right` pointers also scan over each element at most once across all iterations. Therefore, the total work is proportional to the size of the array, `N`.
+
+**Space Complexity:** $O(1)$
+Your solution is very memory-efficient. It only uses a few variables (`result, i, left, right`) to store pointers and the maximum length. The amount of memory used does not grow with the size of the input array, so the space complexity is constant.
