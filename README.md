@@ -353,3 +353,43 @@ This method manually separates the negative and positive numbers, squares them, 
 
 **Space Complexity:** $O(N)$
     This is the main drawback. This approach requires creating two temporary arrays (a and b) whose combined size is equal to the original array. This leads to a linear space requirement, making it less memory-efficient than the two-pointer approach.
+
+### [ 11. 3 Sum](https://leetcode.com/problems/3sum/description/)
+### Problem:
+Given an integer array nums, return all the triplets `[nums[i], nums[j], nums[k]]` such that `i != j`, `i != k`, and `j != k`, and `nums[i] + nums[j] + nums[k] == 0`.
+
+Notice that the solution set must not contain duplicate triplets.
+
+### Solution Explained:
+The strategy is to iterate through the array with one pointer `(i)` and, for each element `nums[i]`, use two more pointers (`left` and `right`) to find two other numbers that sum up to `-nums[i]`.
+
+1. Sort the Input Array: First, sort the `nums` array. This is essential. It makes finding pairs much faster and helps us handle duplicate triplets easily.
+
+2. Iterate with the First Pointer: Loop through the sorted array with a pointer `i` from the beginning up to the third-to-last element. This `nums[i]` will be the first number in our potential triplet.
+
+   * Skip Duplicates: To avoid duplicate triplets (like `[-1, 0, 1]` appearing twice), we add a check. If the current number `nums[i]` is the same as the previous one `nums[i-1]`, we skip it and continue to the next iteration.
+
+3. Two-Pointer Scan: For each `nums[i]`, we set up two more pointers:
+
+   * `left` starts right after `i` (at `i + 1`).
+
+   * `right` starts at the very end of the array.
+
+   * We then loop as long as `left < right`, looking for two numbers that, when added to `nums[i]`, equal zero.
+
+4. Check the Sum: Inside this inner loop, we calculate `sum = nums[i] + nums[left] + nums[right]`.
+
+   * If `sum == 0`: We've found a valid triplet! We add `[nums[i], nums[left], nums[right]]` to our result list. Then, we must move our pointers past any duplicates of the current `left` and `right` values to avoid adding the same triplet again. Finally, we move `left` forward and `right` backward to look for new pairs.
+
+   * If `sum < 0`: The sum is too small, so we need a larger number. We move the `left` pointer to the right (`left++`).
+
+   * If `sum > 0`: The sum is too large, so we need a smaller number. We move the `right` pointer to the left (`right--`).
+
+This process continues until the main loop is finished.
+
+### Complexity Analysis:
+**Time Complexity:** $O(N^2)$
+The algorithm's performance is dominated by its nested loop structure. After an initial sort of the array which takes $O(N \log N)$, the main for loop runs $O(N)$ times. For each iteration, the inner while loop with two pointers scans the rest of the array in $O(N)$ time. This results in a total time complexity of $O(N^2)$.
+
+Space Complexity: $O(\log N)$
+The space required does not depend on the input size, excluding the list for the final answer. The sorting algorithm in Java uses a Quicksort variation that requires $O(\log N)$ stack space for the recursion. The main algorithm itself only uses a few pointers, which is considered constant space ($O(1)$).
