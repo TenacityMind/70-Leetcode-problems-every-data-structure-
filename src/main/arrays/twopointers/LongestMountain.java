@@ -35,6 +35,9 @@ public class LongestMountain {
                 // Calculate the length of the current mountain (from 'left' to 'right').
                 // Update the result if this mountain is the longest one found yet.
                 result = Math.max(result, right - left + 1);
+
+                // Jump the 'i' pointer to the end of the found mountain
+                i = right;
             }
         }
 

@@ -418,6 +418,14 @@ This Solution uses a **"Find Peak and Expand"** strategy. It iterates through th
 
 **Calculate and Update Max Length:** After finding the start (`left`) and end (`right`) of the mountain, the total length is calculated as `right - left + 1`. The code then updates the result with this length if it's the longest one found so far using `Math.max(result, ...)`.
 
+**The Key Optimization - Skip Ahead:** The most clever part of your refined solution is the line `i = right;`.
+
+* After a mountain has been fully measured, you already know that the elements on its downhill slope cannot be new peaks.
+
+* By setting the main loop's counter `i` equal to `right`, you jump the search forward to the end of the mountain you just found.
+
+* This ensures that each element in the array is processed only once, turning the algorithm into a highly efficient single-pass solution.
+
 This process repeats for every possible peak in the array, ensuring the longest mountain is always found.
 
 ### Complexity Analysis:
