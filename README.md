@@ -434,3 +434,32 @@ Although you have `while` loops inside a `for` loop, the time complexity is stil
 
 **Space Complexity:** $O(1)$
 Your solution is very memory-efficient. It only uses a few variables (`result, i, left, right`) to store pointers and the maximum length. The amount of memory used does not grow with the size of the input array, so the space complexity is constant.
+
+## Arrays : Sliding Window
+
+### [13. Contains Duplicate](https://leetcode.com/problems/contains-duplicate-ii/description/)
+
+### Problem 
+Given an integer array `nums` and an integer `k`, return `true` if there are two distinct indices `i` and `j` in the array such that `nums[i] == nums[j]` and `abs(i - j) <= k`.
+
+### Solution Explained
+This solution uses a `HashSet` to maintain a **"sliding window"** of the most recent unique elements. This window is never larger than size `k`, which allows the algorithm to efficiently check for duplicates within the required distance.
+
+**Initialize a HashSet:** The algorithm creates a `HashSet`, which will act as our sliding window. A `HashSet` is used because it only stores unique items and can check for an element's existence in constant time.
+
+**Iterate and Check:** The code iterates through the `nums` array one element at a time. For each number, it tries to add it to the `HashSet`.
+
+* **Find a Duplicate in the Window:** The `.add()` method of a `HashSet` returns `false` if the element already exists in the set. If this happens, it means we have found a duplicate of the current number within our window. Since the window's size is controlled to be no more than `k`, this duplicate is guaranteed to be nearby, so the function immediately returns `true`.
+
+* **Maintain the Window:** After processing each element, the code ensures the window doesn't get too large. If the size of the `HashSet` exceeds `k`, the oldest element in the window `(nums[i - k])`is removed. This action effectively "slides" the window one position to the right, maintaining a constant size and ensuring it only contains recent elements.
+
+If the loop completes without ever finding a duplicate within the sliding window, it means no nearby duplicate exists, and the function returns `false`.
+
+### Complexity Analysis:
+**Time Complexity:** `$O(N)$`
+
+The algorithm iterates through the array of size `N` exactly once. The operations performed inside the loop—`add` and `remove` on the `HashSet`—both take constant `$O(1)$` time on average. This results in a linear time complexity.
+
+**Space Complexity:** `$O(min(N, k))$`
+
+The space is determined by the size of the `HashSet`. The set stores the elements within the "sliding window," which never contains more than `k` elements. If the total number of elements `N` is less than `k`, the set will only store up to `N` elements. Therefore, the space required is proportional to the smaller of the two values, `N` and `k`.
