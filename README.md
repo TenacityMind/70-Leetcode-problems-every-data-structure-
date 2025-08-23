@@ -463,3 +463,30 @@ The algorithm iterates through the array of size `N` exactly once. The operation
 **Space Complexity:** `$O(min(N, k))$`
 
 The space is determined by the size of the `HashSet`. The set stores the elements within the "sliding window," which never contains more than `k` elements. If the total number of elements `N` is less than `k`, the set will only store up to `N` elements. Therefore, the space required is proportional to the smaller of the two values, `N` and `k`.
+
+### [14. Minimum Absolute Difference](https://leetcode.com/problems/minimum-absolute-difference/description/)
+### Problem:
+Given an array of distinct integers `arr`, find all pairs of elements with the minimum absolute difference of any two elements.
+
+Return a list of pairs in ascending order(with respect to pairs), each pair `[a, b]` follows
+
+* `a, b` are from `arr`
+* `a < b`
+* `b - a` equals to the minimum absolute difference of any two elements in `arr`
+
+### Solution Explained:
+Your solution uses an efficient, two-pass approach that hinges on one key insight: after an array is sorted, the minimum difference between any two numbers will always be between adjacent elements.
+
+**Sort the Array:** The first and most crucial step is `Arrays.sort(arr)`. This operation arranges the numbers in non-decreasing order, which guarantees that elements with the smallest possible differences are now next to each other. This avoids the need to compare every number with every other number.
+
+**First Pass (Find the Minimum Difference):** The code then iterates through the sorted array once. Its only goal during this pass is to find the single smallest difference between any adjacent pair. It does this by comparing the difference of each pair `(arr[i+1] - arr[i])` to the `minDifference` found so far and updating it whenever a smaller one is found.
+
+**Second Pass (Collect the Pairs):** Now that the smallest possible difference is known, the code iterates through the sorted array a second time. In this pass, it checks the difference of each adjacent pair again. If a pair's difference is exactly equal to the `minDifference`, that pair is added to the final result list.
+
+### Complexity Analysis:
+
+**Time Complexity:** $O(N \log N)$ 
+The performance of the algorithm is dominated by the initial sorting step, which takes $O(N \log N)$ time. The two subsequent passes through the array are both linear ($O(N)$), which is less significant. Therefore, the overall time complexity is $O(N \log N)$.
+
+**Space Complexity:** $O(\log N)$ or $O(1)$
+The space complexity is determined by the sorting algorithm. Java's `Arrays.sort()`for primitives is a variation of Quicksort that requires $O(\log N)$ stack space. Excluding the space for the output list and the sorting implementation, the algorithm itself only uses a few variables, which is constant $O(1) space.
