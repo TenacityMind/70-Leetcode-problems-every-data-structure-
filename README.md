@@ -491,7 +491,7 @@ The performance of the algorithm is dominated by the initial sorting step, which
 **Space Complexity:** $O(\log N)$ or $O(1)$
 The space complexity is determined by the sorting algorithm. Java's `Arrays.sort()`for primitives is a variation of Quicksort that requires $O(\log N)$ stack space. Excluding the space for the output list and the sorting implementation, the algorithm itself only uses a few variables, which is constant $O(1) space.
 
-### [14. Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/description/)
+### [15. Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/description/)
 ### Problem:
 Given an array of positive integers `nums` and a positive integer `target`, return the minimal length of a subarray whose sum is greater than or equal to `target`. If there is no such subarray, return `0` instead.
 
