@@ -490,3 +490,31 @@ The performance of the algorithm is dominated by the initial sorting step, which
 
 **Space Complexity:** $O(\log N)$ or $O(1)$
 The space complexity is determined by the sorting algorithm. Java's `Arrays.sort()`for primitives is a variation of Quicksort that requires $O(\log N)$ stack space. Excluding the space for the output list and the sorting implementation, the algorithm itself only uses a few variables, which is constant $O(1) space.
+
+### [14. Minimum Size Subarray Sum](https://leetcode.com/problems/minimum-size-subarray-sum/description/)
+### Problem:
+Given an array of positive integers `nums` and a positive integer `target`, return the minimal length of a subarray whose sum is greater than or equal to `target`. If there is no such subarray, return `0` instead.
+
+### Solution Explained:
+**Initialize Pointers and Sum:** We start with both a `left` and `right` pointer at the beginning of the array (`index 0`). We also initialize a `currentSum` to `0` and a `minLength` to a very large value (like `Integer.MAX_VALUE`).
+
+**Expand the Window:** We iterate through the array with the `right` pointer, adding each new element to our `currentSum`. This expands our window to the right.
+
+**Shrink the Window:** As soon as our `currentSum` becomes greater than or equal to the `target`, we've found a valid subarray. Now, we try to find the smallest possible valid subarray by shrinking the window from the left.
+
+* We record the current window's length (`right - left + 1`) if it's smaller than our `minLength` so far.
+
+* We then subtract the element at the `left` pointer from `currentSum` and move the `left` pointer one step to the right.
+
+* We repeat this shrinking process until `currentSum` is no longer greater than or equal to the `target`.
+
+**Continue:** The `right` pointer continues moving to the right, and the process of expanding and shrinking repeats until we've checked the entire array.
+
+**Final Result:** If `minLength` was never updated, it means no valid subarray was found, so we return `0`. Otherwise, we return the `minLength` we found.
+
+### Complexity Analysis:
+**Time Complexity:** $O(N)$
+Although there is a nested `while` loop, the algorithm is linear. Each element is visited at most twice—once by the `right` pointer and once by the `left` pointer.
+
+**Space Complexity:** $O(1)$
+The solution only uses a few variables to store the pointers and sums, so the space required is constant.
