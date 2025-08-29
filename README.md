@@ -520,7 +520,7 @@ Although there is a nested `while` loop, the algorithm is linear. Each element i
 The solution only uses a few variables to store the pointers and sums, so the space required is constant.
 
 ## Bit Manipulation
-### Single Number
+### [Single Number](https://leetcode.com/problems/single-number/description/)
 ### Problem:
 Given a **non-empty** array of integers `nums`, every element appears twice except for one. Find that single one.
 
