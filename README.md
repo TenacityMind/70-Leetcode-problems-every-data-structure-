@@ -518,3 +518,53 @@ Although there is a nested `while` loop, the algorithm is linear. Each element i
 
 **Space Complexity:** $O(1)$
 The solution only uses a few variables to store the pointers and sums, so the space required is constant.
+
+## Bit Manipulation
+### Single Number
+### Problem:
+Given a **non-empty** array of integers `nums`, every element appears twice except for one. Find that single one.
+
+You must implement a solution with a linear runtime complexity and use only constant extra space.
+
+### Solution Explained:
+
+The entire strategy is built on two fundamental properties of the XOR operation:
+
+1. XORing a number with itself results in zero (A ^ A = 0).
+
+2. XORing a number with zero results in the number itself (A ^ 0 = A).
+
+Because the XOR operation is commutative and associative, the order in which you XOR the numbers doesn't matter. You can think of the process as rearranging the array so that all the duplicate pairs are next to each other.
+
+When you XOR every number in the array together:
+
+1. Every pair of duplicate numbers (e.g., 1 ^ 1) will cancel each other out and become 0.
+
+2. The single, unique number is then XORed with the result of all those cancellations (which is 0).
+
+3. This leaves you with just the unique number itself.
+
+Example Walkthrough: nums = [4, 1, 2, 1, 2]
+
+    Initialize result = 0.
+
+    result ^= 4  => result is now 4.
+
+    result ^= 1  => result is now 4 ^ 1.
+
+    result ^= 2  => result is now 4 ^ 1 ^ 2.
+
+    result ^= 1  => result is now 4 ^ 1 ^ 2 ^ 1. Rearranging gives 4 ^ 2 ^ (1 ^ 1), which simplifies to 4 ^ 2 ^ 0.
+
+    result ^= 2  => result is now 4 ^ 2 ^ 0 ^ 2. Rearranging gives 4 ^ 0 ^ (2 ^ 2), which simplifies to 4 ^ 0 ^ 0.
+
+The final result is 4.
+
+### Complexity Analysis:
+
+Time Complexity: $O(N)$
+    The algorithm makes a single pass through the array of N elements. The XOR operation is a constant-time operation.
+
+Space Complexity: $O(1)$
+    This solution is extremely memory-efficient. It only uses a single extra variable to store the accumulated XOR result, regardless of the size of the input array.
+
