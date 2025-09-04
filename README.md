@@ -568,3 +568,36 @@ Time Complexity: $O(N)$
 Space Complexity: $O(1)$
     This solution is extremely memory-efficient. It only uses a single extra variable to store the accumulated XOR result, regardless of the size of the input array.
 
+## Dynamic Programming
+### [ 17. Coin Change](https://leetcode.com/problems/coin-change/description/)
+
+### Problem:
+You are given an integer array `coins` representing coins of different denominations and an integer amount representing a total amount of money.
+
+Return the fewest number of coins that you need to make up that amount. If that amount of money cannot be made up by any combination of the coins, return `-1`.
+
+You may assume that you have an infinite number of each kind of coin.
+
+### Solution Explained
+We'll use a "bottom-up" dynamic programming approach. The idea is to create an array, let's call it `dp`, where `dp[i]` will store the minimum number of coins needed to make the amount i. We'll solve for `dp[1]`, then `dp[2]`, and so on, up to the target amount.
+
+1. Initialize `dp` Array: Create an array `dp` of size `amount + 1`. We'll fill it with a value that's larger than any possible answer (like `amount + 1`) to signify that those amounts are not yet reachable. We set `dp[0] = 0` because it takes zero coins to make an amount of zero.
+
+2. Iterate and Calculate: We loop through each amount `i` from 1 to `amount`. For each amount, we check every available `coin`.
+
+* If a `coin` is less than or equal to the current amount `i`, we have a choice:
+
+   * Don't use this coin (the answer is whatever `dp[i]` already is).
+
+   * Do use this coin. The number of coins would be `1` (for the current coin) plus `dp[i - coin]` (the minimum coins needed for the remaining amount).
+
+* We take the minimum of these two choices and store it in `dp[i]`.
+
+3. Final Result: After the loops complete, `dp[amount]` will hold the minimum number of coins for the target amount. If `dp[amount]` is still the large value we initialized it with, it means the amount is impossible to make, so we return `-1`.
+
+### Complexity Analysis:
+Time Complexity: $O(S \times N)$
+Where `S` is the target `amount` and `N` is the number of coin denominations. This is because of the nested loops: the outer loop runs `S` times, and the inner loop runs `N` times.
+
+Space Complexity: $O(S)$
+The space is determined by the size of the `dp` array, which is proportional to the `amount`.
