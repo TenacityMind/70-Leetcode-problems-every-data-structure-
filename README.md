@@ -601,3 +601,37 @@ Where `S` is the target `amount` and `N` is the number of coin denominations. Th
 
 Space Complexity: $O(S)$
 The space is determined by the size of the `dp` array, which is proportional to the `amount`.
+
+### [Climbing Stairs](https://leetcode.com/problems/climbing-stairs/description/)
+### Problem:
+You are climbing a staircase. It takes `n` steps to reach the top.
+Each time you can either climb `1` or `2` steps. In how many distinct ways can you climb to the top?
+
+### Solution Explained
+Use a bottom-up dynamic programming approach that mirrors the Fibonacci pattern. Define an array dp where dp[i] is the number of ways to reach step i.​
+
+1. Initialize dp
+
+* Create `dp` of size `n + 1`.
+
+* Set base values: `dp[1] = 1`, `dp[2] = 2`.
+* These bases reflect that to reach step i, you sum ways from the previous one and two steps.
+
+2. Iterate and compute
+* For each `i` from 2 to `n`, compute:
+
+   * Use recurrence: `dp[i] = dp[i - 1] + dp[i - 2]`.
+
+   * Intuition: reach `i` either from `i-1` with a 1-step or from `i-2` with a 2-step; add both counts.
+
+3. Final result
+* Return `dp[n]`, the total distinct ways to reach step n.
+
+Equivalent space-optimized version keeps only the last two values instead of a whole array, since each state depends on the previous two.
+
+### Complexity Analysis:
+
+Time Complexity: O(n). Single pass from 2 to n, doing O(1) work per step.
+
+Space Complexity:
+Tabulation: O(n) for the dp array.
